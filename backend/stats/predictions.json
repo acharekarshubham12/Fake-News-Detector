@@ -1,0 +1,460 @@
+{
+  "total_predictions": 65,
+  "counts": {
+    "FAKE": 20,
+    "REAL": 45,
+    "UNKNOWN": 0
+  },
+  "last_predictions": [
+    {
+      "text": "NASA confirms Earth will go dark for 15 days",
+      "label": "FAKE",
+      "prob_fake": 0.8238379757864165,
+      "prob_real": 0.1761620242135835,
+      "confidence": 0.8238379757864165,
+      "lime_url": "/static/explanations/lime_efb1fb1378.html",
+      "timestamp": 1765713620
+    },
+    {
+      "text": "Government to Ban All Smartphones by 2026",
+      "label": "FAKE",
+      "prob_fake": 0.7258649324210481,
+      "prob_real": 0.2741350675789519,
+      "confidence": 0.7258649324210481,
+      "lime_url": "/static/explanations/lime_ce4839dccb.html",
+      "timestamp": 1765711824
+    },
+    {
+      "text": "RBI Raises Growth Forecast for India to 7.2% for FY2025",
+      "label": "REAL",
+      "prob_fake": 0.34626703602583486,
+      "prob_real": 0.6537329639741651,
+      "confidence": 0.6537329639741651,
+      "lime_url": "/static/explanations/lime_f3a0fc4e31.html",
+      "timestamp": 1765711824
+    },
+    {
+      "text": "The decades-long campaign to forcefully stop the flow of drugs into the US is back despite being judged by many policymakers to be a failure",
+      "label": "REAL",
+      "prob_fake": 0.1491494929885797,
+      "prob_real": 0.8508505070114203,
+      "confidence": 0.8508505070114203,
+      "lime_url": "/static/explanations/lime_5a4e2c46dd.html",
+      "timestamp": 1765711823
+    },
+    {
+      "text": "Scientists Confirm the Moon Is Slowly Turning Into a Giant Diamond",
+      "label": "FAKE",
+      "prob_fake": 0.6009755224325485,
+      "prob_real": 0.3990244775674515,
+      "confidence": 0.6009755224325485,
+      "lime_url": "/static/explanations/lime_d2a828125e.html",
+      "timestamp": 1765711822
+    },
+    {
+      "text": "Government to Ban All Smartphones by 2026",
+      "label": "REAL",
+      "prob_fake": 0.11395896475918187,
+      "prob_real": 0.8860410352408181,
+      "confidence": 0.8860410352408181,
+      "lime_url": null,
+      "timestamp": 1765711535
+    },
+    {
+      "text": "RBI Raises Growth Forecast for India to 7.2% for FY2025",
+      "label": "REAL",
+      "prob_fake": 0.3458161243249436,
+      "prob_real": 0.6541838756750564,
+      "confidence": 0.6541838756750564,
+      "lime_url": null,
+      "timestamp": 1765711535
+    },
+    {
+      "text": "The decades-long campaign to forcefully stop the flow of drugs into the US is back despite being judged by many policymakers to be a failure",
+      "label": "REAL",
+      "prob_fake": 0.17136939641520074,
+      "prob_real": 0.8286306035847992,
+      "confidence": 0.8286306035847992,
+      "lime_url": null,
+      "timestamp": 1765711535
+    },
+    {
+      "text": "Scientists Confirm the Moon Is Slowly Turning Into a Giant Diamond",
+      "label": "REAL",
+      "prob_fake": 0.15441155998292783,
+      "prob_real": 0.8455884400170721,
+      "confidence": 0.8455884400170721,
+      "lime_url": null,
+      "timestamp": 1765711535
+    },
+    {
+      "text": "Government to Ban All Smartphones by 2026",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_ce4839dccb.html",
+      "timestamp": 1765710658
+    },
+    {
+      "text": "RBI Raises Growth Forecast for India to 7.2% for FY2025",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_f3a0fc4e31.html",
+      "timestamp": 1765710658
+    },
+    {
+      "text": "The decades-long campaign to forcefully stop the flow of drugs into the US is back despite being judged by many policymakers to be a failure",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_5a4e2c46dd.html",
+      "timestamp": 1765710658
+    },
+    {
+      "text": "Scientists Confirm the Moon Is Slowly Turning Into a Giant Diamond",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_d2a828125e.html",
+      "timestamp": 1765710658
+    },
+    {
+      "text": "Government to Ban All Smartphones by 2026",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_ce4839dccb.html",
+      "timestamp": 1765709436
+    },
+    {
+      "text": "RBI Raises Growth Forecast for India to 7.2% for FY2025",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_f3a0fc4e31.html",
+      "timestamp": 1765709436
+    },
+    {
+      "text": "The decades-long campaign to forcefully stop the flow of drugs into the US is back despite being judged by many policymakers to be a failure",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_5a4e2c46dd.html",
+      "timestamp": 1765709436
+    },
+    {
+      "text": "Scientists Confirm the Moon Is Slowly Turning Into a Giant Diamond",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_d2a828125e.html",
+      "timestamp": 1765709435
+    },
+    {
+      "text": "Government to Ban All Smartphones by 2026",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_ce4839dccb.html",
+      "timestamp": 1765708937
+    },
+    {
+      "text": "RBI Raises Growth Forecast for India to 7.2% for FY2025",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_f3a0fc4e31.html",
+      "timestamp": 1765708936
+    },
+    {
+      "text": "The decades-long campaign to forcefully stop the flow of drugs into the US is back despite being judged by many policymakers to be a failure",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_5a4e2c46dd.html",
+      "timestamp": 1765708936
+    },
+    {
+      "text": "Scientists Confirm the Moon Is Slowly Turning Into a Giant Diamond",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_d2a828125e.html",
+      "timestamp": 1765708936
+    },
+    {
+      "text": "Government to Ban All Smartphones by 2026",
+      "label": "REAL",
+      "prob_fake": 0.11395896475918187,
+      "prob_real": 0.8860410352408181,
+      "confidence": 0.8860410352408181,
+      "lime_url": "/static/explanations/lime_ce4839dccb.html",
+      "timestamp": 1765462312
+    },
+    {
+      "text": "RBI Raises Growth Forecast for India to 7.2% for FY2025",
+      "label": "REAL",
+      "prob_fake": 0.3458161243249436,
+      "prob_real": 0.6541838756750564,
+      "confidence": 0.6541838756750564,
+      "lime_url": "/static/explanations/lime_f3a0fc4e31.html",
+      "timestamp": 1765462312
+    },
+    {
+      "text": "The decades-long campaign to forcefully stop the flow of drugs into the US is back despite being judged by many policymakers to be a failure",
+      "label": "REAL",
+      "prob_fake": 0.17136939641520074,
+      "prob_real": 0.8286306035847992,
+      "confidence": 0.8286306035847992,
+      "lime_url": "/static/explanations/lime_5a4e2c46dd.html",
+      "timestamp": 1765462312
+    },
+    {
+      "text": "Scientists Confirm the Moon Is Slowly Turning Into a Giant Diamond",
+      "label": "REAL",
+      "prob_fake": 0.15441155998292783,
+      "prob_real": 0.8455884400170721,
+      "confidence": 0.8455884400170721,
+      "lime_url": "/static/explanations/lime_d2a828125e.html",
+      "timestamp": 1765462312
+    },
+    {
+      "text": "Government to Ban All Smartphones by 2026",
+      "label": "REAL",
+      "prob_fake": 0.11395896475918187,
+      "prob_real": 0.8860410352408181,
+      "confidence": 0.8860410352408181,
+      "lime_url": "/static/explanations/lime_ce4839dccb.html",
+      "timestamp": 1765461994
+    },
+    {
+      "text": "RBI Raises Growth Forecast for India to 7.2% for FY2025",
+      "label": "REAL",
+      "prob_fake": 0.3458161243249436,
+      "prob_real": 0.6541838756750564,
+      "confidence": 0.6541838756750564,
+      "lime_url": "/static/explanations/lime_f3a0fc4e31.html",
+      "timestamp": 1765461994
+    },
+    {
+      "text": "The decades-long campaign to forcefully stop the flow of drugs into the US is back despite being judged by many policymakers to be a failure",
+      "label": "REAL",
+      "prob_fake": 0.17136939641520074,
+      "prob_real": 0.8286306035847992,
+      "confidence": 0.8286306035847992,
+      "lime_url": "/static/explanations/lime_5a4e2c46dd.html",
+      "timestamp": 1765461994
+    },
+    {
+      "text": "Scientists Confirm the Moon Is Slowly Turning Into a Giant Diamond",
+      "label": "REAL",
+      "prob_fake": 0.15441155998292783,
+      "prob_real": 0.8455884400170721,
+      "confidence": 0.8455884400170721,
+      "lime_url": "/static/explanations/lime_d2a828125e.html",
+      "timestamp": 1765461994
+    },
+    {
+      "text": "Government to Ban All Smartphones by 2026",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_ce4839dccb.html",
+      "timestamp": 1765461557
+    },
+    {
+      "text": "RBI Raises Growth Forecast for India to 7.2% for FY2025",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_f3a0fc4e31.html",
+      "timestamp": 1765461557
+    },
+    {
+      "text": "The decades-long campaign to forcefully stop the flow of drugs into the US is back despite being judged by many policymakers to be a failure",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_5a4e2c46dd.html",
+      "timestamp": 1765461557
+    },
+    {
+      "text": "Scientists Confirm the Moon Is Slowly Turning Into a Giant Diamond",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_d2a828125e.html",
+      "timestamp": 1765461557
+    },
+    {
+      "text": "Goa nightclub fire: Delhi court denies transit anticipatory bail to Luthra brothers",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_199cc2ce7b.html",
+      "timestamp": 1765460850
+    },
+    {
+      "text": "Government to Ban All Smartphones by 2026",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_ce4839dccb.html",
+      "timestamp": 1765460820
+    },
+    {
+      "text": "RBI Raises Growth Forecast for India to 7.2% for FY2025",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_f3a0fc4e31.html",
+      "timestamp": 1765460819
+    },
+    {
+      "text": "The decades-long campaign to forcefully stop the flow of drugs into the US is back despite being judged by many policymakers to be a failure",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_5a4e2c46dd.html",
+      "timestamp": 1765460819
+    },
+    {
+      "text": "Scientists Confirm the Moon Is Slowly Turning Into a Giant Diamond",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_d2a828125e.html",
+      "timestamp": 1765460819
+    },
+    {
+      "text": "Scientists Confirm the Moon Is Slowly Turning Into a Giant Diamond",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_d2a828125e.html",
+      "timestamp": 1765460806
+    },
+    {
+      "text": "Government to Ban All Smartphones by 2026",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_ce4839dccb.html",
+      "timestamp": 1765460777
+    },
+    {
+      "text": "RBI Raises Growth Forecast for India to 7.2% for FY2025",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_f3a0fc4e31.html",
+      "timestamp": 1765460776
+    },
+    {
+      "text": "The decades-long campaign to forcefully stop the flow of drugs into the US is back despite being judged by many policymakers to be a failure",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_5a4e2c46dd.html",
+      "timestamp": 1765460776
+    },
+    {
+      "text": "Scientists Confirm the Moon Is Slowly Turning Into a Giant Diamond",
+      "label": "REAL",
+      "prob_fake": 0.0,
+      "prob_real": 1.0,
+      "confidence": 1.0,
+      "lime_url": "/static/explanations/lime_d2a828125e.html",
+      "timestamp": 1765460776
+    },
+    {
+      "text": "Scientists Confirm the Moon Is Slowly Turning Into a Giant Diamond",
+      "label": "FAKE",
+      "prob_fake": 0.6940375020817052,
+      "prob_real": 0.3059624979182948,
+      "confidence": 0.6940375020817052,
+      "lime_url": "/static/explanations/lime_d2a828125e.html",
+      "timestamp": 1765052216
+    },
+    {
+      "text": "Scientists Confirm the Moon Is Slowly Turning Into a Giant Diamond",
+      "label": "FAKE",
+      "prob_fake": 0.6940375020817052,
+      "prob_real": 0.3059624979182948,
+      "confidence": 0.6940375020817052,
+      "lime_url": "/static/explanations/lime_d2a828125e.html",
+      "timestamp": 1765052168
+    },
+    {
+      "text": "RBI Raises Growth Forecast for India to 7.2% for FY2025",
+      "label": "REAL",
+      "prob_fake": 0.21909032593296257,
+      "prob_real": 0.7809096740670374,
+      "confidence": 0.7809096740670374,
+      "lime_url": "/static/explanations/lime_f3a0fc4e31.html",
+      "timestamp": 1765050260
+    },
+    {
+      "text": "Differently abled candidates eager to make a difference",
+      "label": "FAKE",
+      "prob_fake": 0.7537296369628282,
+      "prob_real": 0.24627036303717176,
+      "confidence": 0.7537296369628282,
+      "lime_url": "/static/explanations/lime_52cc5acf75.html",
+      "timestamp": 1765050235
+    },
+    {
+      "text": "SIR schedule of Kerala further extended by a week",
+      "label": "FAKE",
+      "prob_fake": 0.8206245253725711,
+      "prob_real": 0.17937547462742887,
+      "confidence": 0.8206245253725711,
+      "lime_url": "/static/explanations/lime_8c4ba54f21.html",
+      "timestamp": 1765050218
+    },
+    {
+      "text": "SIR schedule of Kerala further extended by a week",
+      "label": "FAKE",
+      "prob_fake": 0.8206245253725711,
+      "prob_real": 0.17937547462742887,
+      "confidence": 0.8206245253725711,
+      "lime_url": "/static/explanations/lime_8c4ba54f21.html",
+      "timestamp": 1765050206
+    },
+    {
+      "text": "Investigations launched after more unexplained drone sightings off two European coasts",
+      "label": "FAKE",
+      "prob_fake": 0.9636407741910723,
+      "prob_real": 0.0363592258089277,
+      "confidence": 0.9636407741910723,
+      "lime_url": "/static/explanations/lime_7a7bda2ec0.html",
+      "timestamp": 1765050161
+    }
+  ]
+}
