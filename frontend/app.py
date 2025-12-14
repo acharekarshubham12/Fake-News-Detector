@@ -7,222 +7,173 @@ import streamlit as st
 from datetime import datetime
 import pandas as pd
 
-from utils.frontend_utils import (
-    build_backend_url,
-    call_predict,
-    fetch_health,
-    example_sets,
-    download_button,
-)
+# --------------------------------------------------
+# Config
+# --------------------------------------------------
+DEFAULT_BACKEND = "https://fake-news-backend-vyaz.onrender.com"
+BACKEND_URL = os.getenv("STREAMLIT_API_URL", DEFAULT_BACKEND)
 
-# ---------------- Page config & theme tweak ----------------
+TIMEOUT = 30  # backend cold-start safe
+
+# --------------------------------------------------
+# Page config
+# --------------------------------------------------
 st.set_page_config(
     page_title="Fake News Detector — Demo",
     page_icon="📰",
     layout="wide",
-    initial_sidebar_state="expanded",
 )
 
-# small CSS polish for card-like look & dark-ish header
-st.write(
+# --------------------------------------------------
+# Styles
+# --------------------------------------------------
+st.markdown(
     """
     <style>
-    .stButton>button { background-color:#0b6cff; color: white; border-radius:10px; padding:8px 18px; }
-    .stAlert { border-radius: 8px; }
-    .card { background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%); padding:16px; border-radius:12px;
-            box-shadow: 0 6px 22px rgba(11,108,255,0.08); margin-bottom: 18px; }
-    .metric-label { color:#94a3b8; font-weight:700; }
+    .stButton>button {
+        background-color:#0b6cff;
+        color:white;
+        border-radius:10px;
+        padding:8px 18px;
+        font-weight:600;
+    }
+    .card {
+        background:#ffffff;
+        padding:16px;
+        border-radius:12px;
+        box-shadow:0 6px 22px rgba(11,108,255,0.08);
+        margin-bottom:16px;
+    }
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-BACKEND_URL = build_backend_url()
-
-# ---------------- Helpers ----------------
-def append_recent_predictions(results: List[Dict[str, Any]]):
-    if "recent_preds" not in st.session_state:
-        st.session_state["recent_preds"] = []
-    for r in results:
-        rec = {
-            "ts": datetime.utcnow().isoformat(),
-            "text": r.get("text", "")[:1000],
-            "label": r.get("label", "UNKNOWN"),
-            "prob_fake": float(r.get("prob_fake", 0.0)),
-            "prob_real": float(r.get("prob_real", 1.0 - r.get("prob_fake", 0.0))),
-            "confidence": float(r.get("confidence", 0.0)),
-            "lime_url": r.get("lime_url", None),
-        }
-        st.session_state["recent_preds"].insert(0, rec)
-    st.session_state["recent_preds"] = st.session_state["recent_preds"][:200]
-
-def get_dashboard_stats():
+# --------------------------------------------------
+# Backend helpers
+# --------------------------------------------------
+def fetch_health():
     try:
-        r = requests.get(f"{BACKEND_URL}/dashboard/stats", timeout=5)
+        r = requests.get(f"{BACKEND_URL}/health", timeout=10)
         r.raise_for_status()
         return True, r.json()
     except Exception:
-        return False, {}
+        return False, None
 
-# ---------------- Sidebar ----------------
+
+def call_predict(texts: List[str], generate_lime: bool):
+    payload = {"texts": texts}
+    params = {
+        "prefer": "Auto (fast)",
+        "explain": str(generate_lime).lower(),
+    }
+
+    r = requests.post(
+        f"{BACKEND_URL}/predict",
+        json=payload,
+        params=params,
+        timeout=TIMEOUT,
+    )
+    r.raise_for_status()
+    return r.json()
+
+
+# --------------------------------------------------
+# Sidebar
+# --------------------------------------------------
 with st.sidebar:
-    st.title("Fake News Detector")
-    st.markdown("Streamlit demo for your FastAPI backend")
-    st.markdown("---")
-    st.subheader("Backend")
-    ok, health = fetch_health(BACKEND_URL)
+    st.title("📰 Fake News Detector")
+    st.caption("Streamlit frontend for FastAPI backend")
+
+    ok, health = fetch_health()
     if ok:
-        st.success("Backend reachable")
-        st.write(f"Model dir: `{health.get('model_dir','not-set')}`")
-        st.write(f"Baseline: `{health.get('baseline_path','not-set')}`")
+        st.success("Backend connected")
+        st.write("Model:", health.get("model_dir"))
     else:
-        st.error("Backend unreachable")
-        st.write("Start backend and set STREAMLIT_API_URL if needed.")
-    st.markdown("---")
-    st.subheader("Options")
-    generate_lime = st.checkbox("Generate LIME explanations (may be slow)", value=True)
-    st.markdown("---")
-    st.write("Examples")
-    if st.button("Load Mixed batch examples"):
-        st.session_state["text_input"] = "\n".join(example_sets["Mixed batch"])
-    st.markdown("---")
-    st.write("Quick links")
-    st.markdown(f"- [API docs]({BACKEND_URL}/docs)")
+        st.error("Backend unreachable (cold start?)")
 
-# ---------------- Tabs: Predict / Dashboard ----------------
-tab_predict, tab_dashboard = st.tabs(["Predict", "Dashboard"])
-
-# ---------------- Predict Tab ----------------
-with tab_predict:
-    st.header("Predict")
-    st.caption("Enter one or more texts (one per line).")
-
-    text_input = st.text_area(
-        "Input texts (one per line):",
-        value=st.session_state.get("text_input", "\n".join(example_sets["Mixed batch"])),
-        height=220,
+    st.markdown("---")
+    generate_lime = st.checkbox(
+        "Generate LIME explanations (slow)",
+        value=False,
     )
 
-    col_run, col_clear = st.columns([1, 1])
-    with col_run:
-        run_predict = st.button("Predict")
-    with col_clear:
-        if st.button("Clear"):
-            st.session_state["text_input"] = ""
-            st.experimental_rerun()
+    st.markdown("---")
+    st.markdown(f"[API Docs]({BACKEND_URL}/docs)")
 
-    model_mode = st.selectbox("Preferred Model (hint)", ["Auto (fast)", "Baseline only (fast)", "Transformer (accurate, slower)"])
 
-    if run_predict:
-        texts = [t.strip() for t in text_input.splitlines() if t.strip()]
-        if not texts:
-            st.warning("Please enter some text.")
-        else:
-            with st.spinner("Calling backend for predictions..."):
-                try:
-                    results = call_predict(BACKEND_URL, texts, prefer=model_mode, ask_lime=generate_lime)
-                except Exception as e:
-                    st.error(f"Backend request failed: {e}")
-                    results = None
+# --------------------------------------------------
+# Main UI
+# --------------------------------------------------
+st.header("Fake News Detection")
 
-            if results is None:
+text_input = st.text_area(
+    "Enter one or more texts (one per line):",
+    height=220,
+    value=(
+        "Scientists Confirm the Moon Is Slowly Turning Into a Giant Diamond\n"
+        "RBI Raises Growth Forecast for India to 7.2% for FY2025\n"
+        "Government to Ban All Smartphones by 2026"
+    ),
+)
+
+run = st.button("Predict")
+
+# --------------------------------------------------
+# Prediction
+# --------------------------------------------------
+if run:
+    texts = [t.strip() for t in text_input.splitlines() if t.strip()]
+
+    if not texts:
+        st.warning("Please enter some text.")
+    else:
+        with st.spinner("Calling backend (may take ~30s on first request)..."):
+            try:
+                results = call_predict(texts, generate_lime)
+            except Exception as e:
+                st.error(f"Backend request failed: {e}")
                 st.stop()
 
-            append_recent_predictions(results)
-            st.success("Predictions received")
-            download_button(results, f"predictions_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}.json")
-            st.markdown("")
+        st.success("Predictions received")
 
-            # Display results with simple card style and highlight stronger label
-            for i, r in enumerate(results):
-                st.markdown(f"### Example {i+1}")
-                st.write(r.get("text", ""))
+        # --------------------------------------------------
+        # Display results
+        # --------------------------------------------------
+        for i, r in enumerate(results):
+            st.markdown(f"### Example {i+1}")
+            st.write(r["text"])
 
-                # highlight the winning class visually
-                prob_fake = float(r.get("prob_fake", 0.0))
-                prob_real = float(r.get("prob_real", 1.0 - prob_fake)) if r.get("prob_real") is None else float(r.get("prob_real"))
-                confidence = float(r.get("confidence", max(prob_fake, prob_real)))
+            prob_fake = float(r["prob_fake"])
+            prob_real = float(r["prob_real"])
+            confidence = float(r["confidence"])
+            label = r["label"]
 
-                win_label = "REAL" if prob_real >= prob_fake else "FAKE"
+            st.markdown('<div class="card">', unsafe_allow_html=True)
+            c1, c2, c3, c4 = st.columns(4)
 
-                # Card container
-                st.markdown('<div class="card">', unsafe_allow_html=True)
-                c1, c2, c3, c4 = st.columns([1, 1, 1, 1])
-                # Label with simple emphasis
-                label_display = r.get("label", win_label)
-                if label_display == "REAL":
-                    c1.markdown(f"<div style='color:#0b6cff; font-weight:700; font-size:20px'>REAL</div>", unsafe_allow_html=True)
-                elif label_display == "FAKE":
-                    c1.markdown(f"<div style='color:#ef4444; font-weight:700; font-size:20px'>FAKE</div>", unsafe_allow_html=True)
-                else:
-                    c1.markdown(f"<div style='color:#64748b; font-weight:700; font-size:20px'>{label_display}</div>", unsafe_allow_html=True)
+            color = "#ef4444" if label == "FAKE" else "#0b6cff"
+            c1.markdown(
+                f"<h3 style='color:{color}'>{label}</h3>",
+                unsafe_allow_html=True,
+            )
+            c2.metric("Prob Fake", f"{prob_fake:.3f}")
+            c3.metric("Prob Real", f"{prob_real:.3f}")
+            c4.metric("Confidence", f"{confidence:.3f}")
+            st.markdown("</div>", unsafe_allow_html=True)
 
-                c2.metric("Prob (fake)", f"{prob_fake:.3f}")
-                c3.metric("Prob (real)", f"{prob_real:.3f}")
-                c4.metric("Confidence", f"{confidence:.3f}")
-                st.markdown("</div>", unsafe_allow_html=True)
+            if r.get("lime_url"):
+                url = (
+                    r["lime_url"]
+                    if r["lime_url"].startswith("http")
+                    else BACKEND_URL + r["lime_url"]
+                )
+                st.markdown(f"[🔍 LIME Explanation]({url})")
 
-                lime_url = r.get("lime_url")
-                if lime_url:
-                    full_url = lime_url if lime_url.startswith("http") else BACKEND_URL.rstrip("/") + lime_url
-                    st.markdown(f"**LIME explanation:** [{full_url}]({full_url})")
-                else:
-                    if generate_lime:
-                        st.info("LIME explanation not yet available (backend may still be generating it).")
+            st.markdown("---")
 
-                st.markdown("---")
+# --------------------------------------------------
+# Footer
+# --------------------------------------------------
+st.caption("Built with FastAPI + Hugging Face + Streamlit")
 
-# ---------------- Dashboard Tab ----------------
-with tab_dashboard:
-    st.header("Dashboard")
-    st.caption("Session-level summary and backend stats")
-
-    ok_stats, stats_json = get_dashboard_stats()
-    left, right = st.columns([2, 1])
-
-    with left:
-        st.subheader("Backend manifest & stats")
-        if ok_stats:
-            manifest = stats_json.get("manifest")
-            stats = stats_json.get("stats", {})
-            if manifest:
-                st.write("Manifest (snippet):")
-                st.code(json.dumps(manifest, indent=2)[:1500] + ("..." if len(json.dumps(manifest)) > 1500 else ""))
-            else:
-                st.info("No manifest found in model dir.")
-            st.write("Stats:")
-            st.write(stats)
-        else:
-            st.warning("Could not fetch stats from backend.")
-
-    with right:
-        st.subheader("Session summary")
-        recent = st.session_state.get("recent_preds", [])
-        st.metric("Predictions (this session)", len(recent))
-        if recent:
-            df = pd.DataFrame(recent)
-            fake_count = int((df["label"] == "FAKE").sum())
-            real_count = int((df["label"] == "REAL").sum())
-            st.metric("FAKE", fake_count)
-            st.metric("REAL", real_count)
-        else:
-            st.metric("FAKE", 0)
-            st.metric("REAL", 0)
-
-    st.markdown("---")
-    st.subheader("Recent predictions (most recent first)")
-    recent = st.session_state.get("recent_preds", [])
-    if recent:
-        for entry in recent[:10]:
-            with st.expander(f"{entry['ts']} — {entry['label']} ({entry['confidence']:.3f})"):
-                st.write(entry["text"])
-                st.write(f"Prob fake: {entry['prob_fake']:.3f} — Prob real: {entry['prob_real']:.3f}")
-                if entry.get("lime_url"):
-                    url = entry["lime_url"] if entry["lime_url"].startswith("http") else BACKEND_URL.rstrip("/") + entry["lime_url"]
-                    st.write("LIME:", url)
-    else:
-        st.info("No predictions in this session yet. Run some predictions from the Predict tab.")
-
-# ---------------- Footer ----------------
-st.markdown("---")
-st.caption("Built with Streamlit • Connects to your FastAPI backend")
